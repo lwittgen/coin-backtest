@@ -17,7 +17,7 @@ class CandleCollector:
         self.max_limit = 200
         # 파일명에 사용할 수 없는 문자를 언더스코어로 대체
         safe_candle_type = candle_type.replace("/", "_").replace("\\", "_")
-        self.csv_filename = f"candle_data_{safe_candle_type}.csv"
+        self.csv_filename = f"candles_{safe_candle_type}.csv"
 
     def get_candles(self, to_datetime=None, count=200):
         """
