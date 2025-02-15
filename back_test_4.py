@@ -30,6 +30,10 @@ import csv
 # 주어진 n과 m에 대한 시뮬레이션이 끝날때마다 csv와 동일하게 화면에도 출력.
 # 최고의 수익률을 기록한 n과 m및 최종 잔고와 수익률을 출력.
 
+# n=6, m=41
+# 최종 잔고: 604,578,628원
+# 총 수익률: 60357.86%
+
 
 class InvestmentSimulator:
     def __init__(self, data_file, initial_capital=1_000_000, fee_rate=0.01):
