@@ -11,6 +11,11 @@ from typing import Dict, List, Tuple
 # 최종잔고=1,387,398,313원
 # 수익률=138639.83%
 
+SHORT_PERIOD_RANGE = range(5, 21)
+LONG_PERIOD_RANGE = range(10, 81)
+INPUT_FILE = "candles_days.csv"
+OUTPUT_FILE = "backtest_7_days.csv"
+
 
 class InvestmentSimulator:
     def __init__(
@@ -123,8 +128,8 @@ def run_simulation(csv_path: str, output_path: str):
     best_result = None
 
     # n과 m 범위 설정
-    for n in range(5, 21):  # 단기 이평선
-        for m in range(10, 81):  # 장기 이평선
+    for n in SHORT_PERIOD_RANGE:  # 단기 이평선
+        for m in LONG_PERIOD_RANGE:  # 장기 이평선
             # m이 n의 2배 미만인 경우 제외
             if m < n * 2:
                 continue
@@ -176,8 +181,4 @@ def run_simulation(csv_path: str, output_path: str):
 
 
 if __name__ == "__main__":
-    # CSV 파일 경로 설정
-    input_csv = "candles_days.csv"  # 원본 데이터 파일
-    output_csv = "simulation_results.csv"  # 결과 저장 파일
-
-    run_simulation(input_csv, output_csv)
+    run_simulation(INPUT_FILE, OUTPUT_FILE)

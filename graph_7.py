@@ -35,6 +35,8 @@ INITIAL_CAPITAL = 1_000_000  # 초기 자본금 (원)
 COMMISSION_RATE = 0.01  # 수수료율 (1.0%)
 SHORT_TERM_PERIOD = 11  # 단기 이동평균 기간
 LONG_TERM_PERIOD = 38  # 장기 이동평균 기간
+INPUT_FILE = "candles_days.csv"
+OUTPUT_FILE = "graph_7.html"
 
 
 def load_data(filename):
@@ -165,7 +167,7 @@ def create_plot(df):
 
 def main():
     # 데이터 로드 및 처리
-    df = load_data("candles_days.csv")
+    df = load_data(INPUT_FILE)
     df = calculate_indicators(df)
     df = simulate_trading(df)
 
@@ -173,7 +175,7 @@ def main():
     fig = create_plot(df)
 
     # HTML 파일로 저장
-    fig.write_html("investment_simulation_result.html")
+    fig.write_html(OUTPUT_FILE)
 
     # 최종 수익률 계산
     total_return = (df["portfolio_value"].iloc[-1] / INITIAL_CAPITAL - 1) * 100
