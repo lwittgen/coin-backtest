@@ -3,6 +3,11 @@ import pandas as pd
 import os
 
 
+CANDLE_TYPE = "days"  # days, minutes/1, minutes/3, minutes/5, minutes/10, minutes/15, minutes/30, minutes/60, minutes/240
+MARKET_CODE = "KRW-BTC"
+OUTPUT_FILE = f"candles_{CANDLE_TYPE.replace("/", "_")}.csv"
+
+
 class CandleCollector:
     def __init__(self, base_url, candle_type="days"):
         """
@@ -15,9 +20,7 @@ class CandleCollector:
         self.base_url = base_url
         self.candle_type = candle_type
         self.max_limit = 200
-        # 파일명에 사용할 수 없는 문자를 언더스코어로 대체
-        safe_candle_type = candle_type.replace("/", "_").replace("\\", "_")
-        self.csv_filename = f"candles_{safe_candle_type}.csv"
+        self.csv_filename = OUTPUT_FILE
 
     def get_candles(self, to_datetime=None, count=200):
         """
@@ -30,7 +33,7 @@ class CandleCollector:
         Returns:
             list: 캔들 데이터 리스트
         """
-        params = {"market": "KRW-BTC", "count": min(count, self.max_limit)}
+        params = {"market": MARKET_CODE, "count": min(count, self.max_limit)}
         if to_datetime:
             params["to"] = to_datetime
 
@@ -132,8 +135,5 @@ class CandleCollector:
 
 # 사용 예시
 if __name__ == "__main__":
-    BASE_URL = "https://api.bithumb.com/v1/candles/"
-    CANDLE_TYPE = "days"  # days, minutes/1, minutes/3, minutes/5, minutes/10, minutes/15, minutes/30, minutes/60, minutes/240
-
-    collector = CandleCollector(BASE_URL, CANDLE_TYPE)
+    collector = CandleCollector("https://api.bithumb.com/v1/candles/", CANDLE_TYPE)
     collector.collect_and_save()
